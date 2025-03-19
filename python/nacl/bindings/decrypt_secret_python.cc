@@ -14,7 +14,7 @@
 /* BINDTOOL_GEN_AUTOMATIC(1)                                                       */
 /* BINDTOOL_USE_PYGCCXML(0)                                                        */
 /* BINDTOOL_HEADER_FILE(decrypt_secret.h)                                        */
-/* BINDTOOL_HEADER_FILE_HASH(86b81d31a0bb87204d689d8c19825457)                     */
+/* BINDTOOL_HEADER_FILE_HASH(5dba587fa05d64de4e03f24eb57ccdaf)                     */
 /***********************************************************************************/
 
 #include <pybind11/complex.h>
@@ -23,38 +23,25 @@
 
 namespace py = pybind11;
 
-#include <gnuradio/nacl/decrypt_secret.h>
+#include <nacl/decrypt_secret.h>
 // pydoc.h is automatically generated in the build directory
 #include <decrypt_secret_pydoc.h>
 
 void bind_decrypt_secret(py::module& m)
 {
 
-    using decrypt_secret    = gr::nacl::decrypt_secret;
+    using decrypt_secret = ::gr::nacl::decrypt_secret;
 
 
-    py::class_<decrypt_secret, gr::block, gr::basic_block,
-        std::shared_ptr<decrypt_secret>>(m, "decrypt_secret", D(decrypt_secret))
+    py::class_<decrypt_secret,
+               gr::block,
+               gr::basic_block,
+               std::shared_ptr<decrypt_secret>>(m, "decrypt_secret", D(decrypt_secret))
 
         .def(py::init(&decrypt_secret::make),
-                py::arg("filename_key"),
-           D(decrypt_secret,make)
-        )
-        
-
+             py::arg("filename_key"),
+             D(decrypt_secret, make))
 
 
         ;
-
-
-
-
 }
-
-
-
-
-
-
-
-

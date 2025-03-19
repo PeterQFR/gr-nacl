@@ -15,13 +15,10 @@
  */
 
 
-
- static const char *__doc_gr_nacl_encrypt_public = R"doc()doc";
-
-
- static const char *__doc_gr_nacl_encrypt_public_encrypt_public = R"doc()doc";
+static const char* __doc_gr_nacl_encrypt_public = R"doc()doc";
 
 
- static const char *__doc_gr_nacl_encrypt_public_make = R"doc()doc";
+static const char* __doc_gr_nacl_encrypt_public_encrypt_public = R"doc()doc";
 
-  
+
+static const char* __doc_gr_nacl_encrypt_public_make = R"doc()doc";

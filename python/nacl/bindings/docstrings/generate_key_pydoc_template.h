@@ -15,13 +15,10 @@
  */
 
 
-
- static const char *__doc_gr_nacl_generate_key = R"doc()doc";
-
-
- static const char *__doc_gr_nacl_generate_key_generate_key = R"doc()doc";
+static const char* __doc_gr_nacl_generate_key = R"doc()doc";
 
 
- static const char *__doc_gr_nacl_generate_key_make = R"doc()doc";
+static const char* __doc_gr_nacl_generate_key_generate_key = R"doc()doc";
 
-  
+
+static const char* __doc_gr_nacl_generate_key_make = R"doc()doc";

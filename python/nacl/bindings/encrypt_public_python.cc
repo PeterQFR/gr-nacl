@@ -14,7 +14,7 @@
 /* BINDTOOL_GEN_AUTOMATIC(1)                                                       */
 /* BINDTOOL_USE_PYGCCXML(0)                                                        */
 /* BINDTOOL_HEADER_FILE(encrypt_public.h)                                        */
-/* BINDTOOL_HEADER_FILE_HASH(8d7235b172de9b21b4d6ba9001720766)                     */
+/* BINDTOOL_HEADER_FILE_HASH(74656dca9710de440477541ec12e56eb)                     */
 /***********************************************************************************/
 
 #include <pybind11/complex.h>
@@ -23,39 +23,26 @@
 
 namespace py = pybind11;
 
-#include <gnuradio/nacl/encrypt_public.h>
+#include <nacl/encrypt_public.h>
 // pydoc.h is automatically generated in the build directory
 #include <encrypt_public_pydoc.h>
 
 void bind_encrypt_public(py::module& m)
 {
 
-    using encrypt_public    = gr::nacl::encrypt_public;
+    using encrypt_public = ::gr::nacl::encrypt_public;
 
 
-    py::class_<encrypt_public, gr::block, gr::basic_block,
-        std::shared_ptr<encrypt_public>>(m, "encrypt_public", D(encrypt_public))
+    py::class_<encrypt_public,
+               gr::block,
+               gr::basic_block,
+               std::shared_ptr<encrypt_public>>(m, "encrypt_public", D(encrypt_public))
 
         .def(py::init(&encrypt_public::make),
-                py::arg("filename_pk"),
-                py::arg("filename_sk"),
-           D(encrypt_public,make)
-        )
-        
-
+             py::arg("filename_pk"),
+             py::arg("filename_sk"),
+             D(encrypt_public, make))
 
 
         ;
-
-
-
-
 }
-
-
-
-
-
-
-
-

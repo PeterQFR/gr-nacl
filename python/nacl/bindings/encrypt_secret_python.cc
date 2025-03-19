@@ -14,7 +14,7 @@
 /* BINDTOOL_GEN_AUTOMATIC(1)                                                       */
 /* BINDTOOL_USE_PYGCCXML(0)                                                        */
 /* BINDTOOL_HEADER_FILE(encrypt_secret.h)                                        */
-/* BINDTOOL_HEADER_FILE_HASH(067b3d3907f9db4261bc3091006cb614)                     */
+/* BINDTOOL_HEADER_FILE_HASH(5d821ce00b97ef870652c0243e519030)                     */
 /***********************************************************************************/
 
 #include <pybind11/complex.h>
@@ -23,38 +23,25 @@
 
 namespace py = pybind11;
 
-#include <gnuradio/nacl/encrypt_secret.h>
+#include <nacl/encrypt_secret.h>
 // pydoc.h is automatically generated in the build directory
 #include <encrypt_secret_pydoc.h>
 
 void bind_encrypt_secret(py::module& m)
 {
 
-    using encrypt_secret    = gr::nacl::encrypt_secret;
+    using encrypt_secret = ::gr::nacl::encrypt_secret;
 
 
-    py::class_<encrypt_secret, gr::block, gr::basic_block,
-        std::shared_ptr<encrypt_secret>>(m, "encrypt_secret", D(encrypt_secret))
+    py::class_<encrypt_secret,
+               gr::block,
+               gr::basic_block,
+               std::shared_ptr<encrypt_secret>>(m, "encrypt_secret", D(encrypt_secret))
 
         .def(py::init(&encrypt_secret::make),
-                py::arg("filename_key"),
-           D(encrypt_secret,make)
-        )
-        
-
+             py::arg("filename_key"),
+             D(encrypt_secret, make))
 
 
         ;
-
-
-
-
 }
-
-
-
-
-
-
-
-

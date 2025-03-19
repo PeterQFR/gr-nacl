@@ -57,7 +57,7 @@ decrypt_public_impl::decrypt_public_impl(std::string filename_pk, std::string fi
     std::ifstream file_sk(filename_sk.c_str());
     if (!(file_sk.is_open()))
         throw std::runtime_error("Secret-key file not found.");
-    for (int k = 0; k < crypto_box_SECRETKEYBYTES; k++) {
+    for (unsigned int k = 0; k < crypto_box_SECRETKEYBYTES; k++) {
         file_sk.get(c);
         d_sk[k] = c;
     }
@@ -66,7 +66,7 @@ decrypt_public_impl::decrypt_public_impl(std::string filename_pk, std::string fi
     std::ifstream file_pk(filename_pk.c_str());
     if (!(file_pk.is_open()))
         throw std::runtime_error("Public-key file not found.");
-    for (int k = 0; k < crypto_box_PUBLICKEYBYTES; k++) {
+    for (unsigned int k = 0; k < crypto_box_PUBLICKEYBYTES; k++) {
         file_pk.get(c);
         d_pk[k] = c;
     }
@@ -101,7 +101,7 @@ void decrypt_public_impl::handle_msg(pmt::pmt_t msg)
     std::vector<uint8_t> data, nonce;
     bool msg_encrypted_found = false;
     bool nonce_found = false;
-    for (int k = 0; k < msg_size; k++) {
+    for (unsigned int k = 0; k < msg_size; k++) {
         if (pmt::symbol_to_string(pmt::nth(0, pmt::nth(k, msg))) == "msg_encrypted") {
             if (pmt::is_u8vector(pmt::nth(1, pmt::nth(k, msg)))) {
                 data = pmt::u8vector_elements(pmt::nth(1, pmt::nth(k, msg)));
@@ -123,9 +123,9 @@ void decrypt_public_impl::handle_msg(pmt::pmt_t msg)
         std::vector<unsigned char> nonce_char(nonce.size());
 
         size_t data_char_sz = (sizeof(unsigned char) * data.size());
-        for (int k = 0; k < data.size(); k++)
+        for (size_t k = 0; k < data.size(); k++)
             data_char[k] = (unsigned char)data[k];
-        for (int k = 0; k < nonce.size(); k++)
+        for (size_t k = 0; k < nonce.size(); k++)
             nonce_char[k] = (unsigned char)nonce[k];
         size_t msg_len = data_char_sz - crypto_box_MACBYTES;
         std::vector<unsigned char> msg_decrypted(msg_len);
@@ -138,7 +138,7 @@ void decrypt_public_impl::handle_msg(pmt::pmt_t msg)
             // repack msg with symbol 'msg_decrypted'
             std::vector<uint8_t> msg_decrypted_vec;
             msg_decrypted_vec.resize(msg_len);
-            for (int k = 0; k < msg_len; k++)
+            for (unsigned int k = 0; k < msg_len; k++)
                 msg_decrypted_vec[k] = (uint8_t)msg_decrypted[k];
 
             pmt::pmt_t msg_out = pmt::list2(

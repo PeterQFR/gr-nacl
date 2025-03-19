@@ -57,7 +57,7 @@ encrypt_public_impl::encrypt_public_impl(std::string filename_pk, std::string fi
     std::ifstream file_sk(filename_sk.c_str());
     if (!(file_sk.is_open()))
         throw std::runtime_error("Secret-key file not found.");
-    for (int k = 0; k < crypto_box_SECRETKEYBYTES; k++) {
+    for (unsigned int k = 0; k < crypto_box_SECRETKEYBYTES; k++) {
         file_sk.get(c);
         d_sk[k] = c;
     }
@@ -66,7 +66,7 @@ encrypt_public_impl::encrypt_public_impl(std::string filename_pk, std::string fi
     std::ifstream file_pk(filename_pk.c_str());
     if (!(file_pk.is_open()))
         throw std::runtime_error("Public-key file not found.");
-    for (int k = 0; k < crypto_box_PUBLICKEYBYTES; k++) {
+    for (unsigned int k = 0; k < crypto_box_PUBLICKEYBYTES; k++) {
         file_pk.get(c);
         d_pk[k] = c;
     }
@@ -89,7 +89,7 @@ void encrypt_public_impl::handle_msg(pmt::pmt_t msg)
 
     // check for unencrypted (clear) message tagged with symbol 'msg_clear'
     std::vector<uint8_t> data;
-    for (int k = 0; k < msg_size; k++) {
+    for (unsigned int k = 0; k < msg_size; k++) {
         if (pmt::symbol_to_string(pmt::nth(0, pmt::nth(k, msg))) == "msg_clear") {
             if (pmt::is_u8vector(pmt::nth(1, pmt::nth(k, msg)))) {
                 data = pmt::u8vector_elements(pmt::nth(1, pmt::nth(k, msg)));
@@ -106,7 +106,7 @@ void encrypt_public_impl::handle_msg(pmt::pmt_t msg)
         // encrypt message
         std::vector<unsigned char> data_char(data.size());
         size_t data_char_sz = (sizeof(unsigned char) * data.size());
-        for (int k = 0; k < data.size(); k++)
+        for (size_t k = 0; k < data.size(); k++)
             data_char[k] = (unsigned char)data[k];
         size_t ciphertext_len = crypto_box_MACBYTES + data_char_sz;
         std::vector<unsigned char> ciphertext(ciphertext_len);
@@ -115,12 +115,12 @@ void encrypt_public_impl::handle_msg(pmt::pmt_t msg)
         // repack msg with symbol 'msg_encrypted' and nonce with symbol 'nonce'
         std::vector<uint8_t> msg_encrypted;
         msg_encrypted.resize(ciphertext_len);
-        for (int k = 0; k < ciphertext_len; k++)
+        for (unsigned int  k = 0; k < ciphertext_len; k++)
             msg_encrypted[k] = (uint8_t)ciphertext[k];
 
         std::vector<uint8_t> nonce_vec;
         nonce_vec.resize(crypto_box_NONCEBYTES);
-        for (int k = 0; k < crypto_box_NONCEBYTES; k++)
+        for (unsigned int k = 0; k < crypto_box_NONCEBYTES; k++)
             nonce_vec[k] = (uint8_t)nonce[k];
 
         pmt::pmt_t msg_out_nonce =

@@ -33,7 +33,7 @@ list(APPEND nacl_python_files
     generate_key_python.cc
     generate_keypair_python.cc python_bindings.cc)
 
-gr_pybind_make_oot(nacl ../../.. gr::nacl "${nacl_python_files}")
+gr_pybind_make_oot(nacl ../../.. gr::nacl "${nacl_python_files}" EXTRA_ARGS "--defines ''")
 
 # copy bindings extension for use in QA test module
 add_custom_command(

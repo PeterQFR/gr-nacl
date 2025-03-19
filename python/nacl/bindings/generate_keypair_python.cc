@@ -14,7 +14,7 @@
 /* BINDTOOL_GEN_AUTOMATIC(1)                                                       */
 /* BINDTOOL_USE_PYGCCXML(0)                                                        */
 /* BINDTOOL_HEADER_FILE(generate_keypair.h)                                        */
-/* BINDTOOL_HEADER_FILE_HASH(1dbcd100b00403e738b84526025600ca)                     */
+/* BINDTOOL_HEADER_FILE_HASH(0471a5b3b34a70211e0116e42aa91d4d)                     */
 /***********************************************************************************/
 
 #include <pybind11/complex.h>
@@ -23,39 +23,27 @@
 
 namespace py = pybind11;
 
-#include <gnuradio/nacl/generate_keypair.h>
+#include <nacl/generate_keypair.h>
 // pydoc.h is automatically generated in the build directory
 #include <generate_keypair_pydoc.h>
 
 void bind_generate_keypair(py::module& m)
 {
 
-    using generate_keypair    = gr::nacl::generate_keypair;
+    using generate_keypair = ::gr::nacl::generate_keypair;
 
 
-    py::class_<generate_keypair, gr::block, gr::basic_block,
-        std::shared_ptr<generate_keypair>>(m, "generate_keypair", D(generate_keypair))
+    py::class_<generate_keypair,
+               gr::block,
+               gr::basic_block,
+               std::shared_ptr<generate_keypair>>(
+        m, "generate_keypair", D(generate_keypair))
 
         .def(py::init(&generate_keypair::make),
-                py::arg("filename_sk"),
-                py::arg("filename_pk"),
-           D(generate_keypair,make)
-        )
-        
-
+             py::arg("filename_sk"),
+             py::arg("filename_pk"),
+             D(generate_keypair, make))
 
 
         ;
-
-
-
-
 }
-
-
-
-
-
-
-
-

@@ -14,7 +14,7 @@
 /* BINDTOOL_GEN_AUTOMATIC(1)                                                       */
 /* BINDTOOL_USE_PYGCCXML(0)                                                        */
 /* BINDTOOL_HEADER_FILE(generate_key.h)                                        */
-/* BINDTOOL_HEADER_FILE_HASH(c4fcac6d1c787349eaf2efd0fc512661)                     */
+/* BINDTOOL_HEADER_FILE_HASH(88f400a00dab4b530dfe76077115598d)                     */
 /***********************************************************************************/
 
 #include <pybind11/complex.h>
@@ -23,38 +23,22 @@
 
 namespace py = pybind11;
 
-#include <gnuradio/nacl/generate_key.h>
+#include <nacl/generate_key.h>
 // pydoc.h is automatically generated in the build directory
 #include <generate_key_pydoc.h>
 
 void bind_generate_key(py::module& m)
 {
 
-    using generate_key    = gr::nacl::generate_key;
+    using generate_key = ::gr::nacl::generate_key;
 
 
-    py::class_<generate_key, gr::block, gr::basic_block,
-        std::shared_ptr<generate_key>>(m, "generate_key", D(generate_key))
+    py::class_<generate_key, gr::block, gr::basic_block, std::shared_ptr<generate_key>>(
+        m, "generate_key", D(generate_key))
 
-        .def(py::init(&generate_key::make),
-                py::arg("filename_key"),
-           D(generate_key,make)
-        )
-        
-
+        .def(
+            py::init(&generate_key::make), py::arg("filename_key"), D(generate_key, make))
 
 
         ;
-
-
-
-
 }
-
-
-
-
-
-
-
-

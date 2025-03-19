@@ -3,7 +3,7 @@ label: Crypt Tagged Stream
 category: '[NACL]'
 
 templates:
-  imports: import nacl
+  imports: from gnuradio import nacl
   make: nacl.crypt_tagged_stream(${key}, ${nonce}, ${rotate_nonce}, ${len_key})
 
 #  Make one 'parameters' list entry for every parameter you want settable from the GUI.

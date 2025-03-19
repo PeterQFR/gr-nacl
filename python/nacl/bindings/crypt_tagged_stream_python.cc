@@ -14,7 +14,7 @@
 /* BINDTOOL_GEN_AUTOMATIC(1)                                                       */
 /* BINDTOOL_USE_PYGCCXML(0)                                                        */
 /* BINDTOOL_HEADER_FILE(crypt_tagged_stream.h)                                        */
-/* BINDTOOL_HEADER_FILE_HASH(51b69bdf2e3583ed47aacfbf6bec8e85)                     */
+/* BINDTOOL_HEADER_FILE_HASH(aee1108315130fc44c70bb021e3ca0a7)                     */
 /***********************************************************************************/
 
 #include <pybind11/complex.h>
@@ -23,33 +23,30 @@
 
 namespace py = pybind11;
 
-#include <gnuradio/nacl/crypt_tagged_stream.h>
+#include <nacl/crypt_tagged_stream.h>
 // pydoc.h is automatically generated in the build directory
 #include <crypt_tagged_stream_pydoc.h>
 
 void bind_crypt_tagged_stream(py::module& m)
 {
 
-    using crypt_tagged_stream    = gr::nacl::crypt_tagged_stream;
+    using crypt_tagged_stream = ::gr::nacl::crypt_tagged_stream;
 
 
-    py::class_<crypt_tagged_stream, gr::tagged_stream_block, gr::block, gr::basic_block,
-        std::shared_ptr<crypt_tagged_stream>>(m, "crypt_tagged_stream", D(crypt_tagged_stream))
+    py::class_<crypt_tagged_stream,
+               gr::tagged_stream_block,
+               gr::block,
+               gr::basic_block,
+               std::shared_ptr<crypt_tagged_stream>>(
+        m, "crypt_tagged_stream", D(crypt_tagged_stream))
 
         .def(py::init(&crypt_tagged_stream::make),
-                py::arg("key"),
-                py::arg("nonce"),
-                py::arg("rotate_nonce") = false,
-                py::arg("len_key") = 'packet_len',
-           D(crypt_tagged_stream,make)
-        )
+             py::arg("key"),
+             py::arg("nonce"),
+             py::arg("rotate_nonce") = false,
+             py::arg("len_key") = "packet_len",
+             D(crypt_tagged_stream, make))
+
+
         ;
 }
-
-
-
-
-
-
-
-

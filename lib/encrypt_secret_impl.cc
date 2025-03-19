@@ -54,7 +54,7 @@ encrypt_secret_impl::encrypt_secret_impl(std::string filename_key)
     std::ifstream file_key(filename_key.c_str());
     if (!(file_key.is_open()))
         throw std::runtime_error("Key file not found.");
-    for (int k = 0; k < crypto_secretbox_KEYBYTES; k++) {
+    for (unsigned int k = 0; k < crypto_secretbox_KEYBYTES; k++) {
         file_key.get(c);
         d_key[k] = c;
     }
@@ -77,7 +77,7 @@ void encrypt_secret_impl::handle_msg(pmt::pmt_t msg)
 
     // check for unencrypted (clear) message tagged with symbol 'msg_clear'
     std::vector<uint8_t> data;
-    for (int k = 0; k < msg_size; k++) {
+    for (unsigned int k = 0; k < msg_size; k++) {
         if (pmt::symbol_to_string(pmt::nth(0, pmt::nth(k, msg))) == "msg_clear") {
             if (pmt::is_u8vector(pmt::nth(1, pmt::nth(k, msg)))) {
                 data = pmt::u8vector_elements(pmt::nth(1, pmt::nth(k, msg)));
@@ -94,7 +94,7 @@ void encrypt_secret_impl::handle_msg(pmt::pmt_t msg)
         // encrypt message
         std::vector <unsigned char> data_char(data.size());
         size_t data_char_sz = (sizeof(unsigned char) * data.size());
-        for (int k = 0; k < data.size(); k++)
+        for (size_t k = 0; k < data.size(); k++)
             data_char[k] = (unsigned char)data[k];
         size_t ciphertext_len = crypto_secretbox_MACBYTES + data_char_sz;
         std::vector<unsigned char> ciphertext(ciphertext_len);
@@ -103,12 +103,12 @@ void encrypt_secret_impl::handle_msg(pmt::pmt_t msg)
         // repack msg with symbol 'msg_encrypted' and nonce with symbol 'nonce'
         std::vector<uint8_t> msg_encrypted;
         msg_encrypted.resize(ciphertext_len);
-        for (int k = 0; k < ciphertext_len; k++)
+        for (unsigned int k = 0; k < ciphertext_len; k++)
             msg_encrypted[k] = (uint8_t)ciphertext[k];
 
         std::vector<uint8_t> nonce_vec;
         nonce_vec.resize(crypto_secretbox_NONCEBYTES);
-        for (int k = 0; k < crypto_secretbox_NONCEBYTES; k++)
+        for (unsigned int k = 0; k < crypto_secretbox_NONCEBYTES; k++)
             nonce_vec[k] = (uint8_t)nonce[k];
 
         pmt::pmt_t msg_out_nonce =

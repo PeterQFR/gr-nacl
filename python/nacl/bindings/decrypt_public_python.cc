@@ -14,7 +14,7 @@
 /* BINDTOOL_GEN_AUTOMATIC(1)                                                       */
 /* BINDTOOL_USE_PYGCCXML(0)                                                        */
 /* BINDTOOL_HEADER_FILE(decrypt_public.h)                                        */
-/* BINDTOOL_HEADER_FILE_HASH(355ee8e78cd6ffa8c69af8adc74e084a)                     */
+/* BINDTOOL_HEADER_FILE_HASH(7de6a82c8078e4bd8f423aba7ac1f1b1)                     */
 /***********************************************************************************/
 
 #include <pybind11/complex.h>
@@ -23,39 +23,26 @@
 
 namespace py = pybind11;
 
-#include <gnuradio/nacl/decrypt_public.h>
+#include <nacl/decrypt_public.h>
 // pydoc.h is automatically generated in the build directory
 #include <decrypt_public_pydoc.h>
 
 void bind_decrypt_public(py::module& m)
 {
 
-    using decrypt_public    = gr::nacl::decrypt_public;
+    using decrypt_public = ::gr::nacl::decrypt_public;
 
 
-    py::class_<decrypt_public, gr::block, gr::basic_block,
-        std::shared_ptr<decrypt_public>>(m, "decrypt_public", D(decrypt_public))
+    py::class_<decrypt_public,
+               gr::block,
+               gr::basic_block,
+               std::shared_ptr<decrypt_public>>(m, "decrypt_public", D(decrypt_public))
 
         .def(py::init(&decrypt_public::make),
-                py::arg("filename_pk"),
-                py::arg("filename_sk"),
-           D(decrypt_public,make)
-        )
-        
-
+             py::arg("filename_pk"),
+             py::arg("filename_sk"),
+             D(decrypt_public, make))
 
 
         ;
-
-
-
-
 }
-
-
-
-
-
-
-
-

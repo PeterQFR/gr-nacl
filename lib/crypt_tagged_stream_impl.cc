@@ -68,9 +68,9 @@ crypt_tagged_stream_impl::crypt_tagged_stream_impl(std::string key,
     }
 
     // Copy nonce and key from string to unsigend char array
-    for (int k = 0; k < crypto_stream_KEYBYTES; k++)
+    for (unsigned int k = 0; k < crypto_stream_KEYBYTES; k++)
         d_key[k] = (uint8_t)key[k];
-    for (int k = 0; k < crypto_stream_NONCEBYTES; k++)
+    for (unsigned int k = 0; k < crypto_stream_NONCEBYTES; k++)
         d_nonce[k] = (uint8_t)nonce[k];
 }
 
@@ -114,7 +114,7 @@ int crypt_tagged_stream_impl::work(int noutput_items,
 
             // Shift left char array and add stored bit at the end // FIXME: check this
             // implementation!
-            for (int k = 0; k < crypto_stream_NONCEBYTES; k++)
+            for (unsigned int k = 0; k < crypto_stream_NONCEBYTES; k++)
                 d_nonce[k] = d_nonce[k] << 1;
             if (store_bit == 0)
                 d_nonce[crypto_stream_NONCEBYTES - 1] =

@@ -52,7 +52,7 @@ generate_key_impl::generate_key_impl(std::string filename_key)
 
     // save keys to files
     std::ofstream file_key(filename_key.c_str());
-    for (int k = 0; k < crypto_secretbox_KEYBYTES; k++)
+    for (unsigned int k = 0; k < crypto_secretbox_KEYBYTES; k++)
         file_key << key[k];
     file_key.close();
 

@@ -57,12 +57,12 @@ generate_keypair_impl::generate_keypair_impl(std::string filename_sk,
 
     // save keys to files
     std::ofstream file_sk(filename_sk.c_str());
-    for (int k = 0; k < crypto_box_SECRETKEYBYTES; k++)
+    for (unsigned int k = 0; k < crypto_box_SECRETKEYBYTES; k++)
         file_sk << sk[k];
     file_sk.close();
 
     std::ofstream file_pk(filename_pk.c_str());
-    for (int k = 0; k < crypto_box_PUBLICKEYBYTES; k++)
+    for (unsigned int k = 0; k < crypto_box_PUBLICKEYBYTES; k++)
         file_pk << pk[k];
     file_pk.close();
 

@@ -54,7 +54,7 @@ decrypt_secret_impl::decrypt_secret_impl(std::string filename_key)
     std::ifstream file_key(filename_key.c_str());
     if (!(file_key.is_open()))
         throw std::runtime_error("Key file not found.");
-    for (int k = 0; k < crypto_secretbox_KEYBYTES; k++) {
+    for (unsigned int k = 0; k < crypto_secretbox_KEYBYTES; k++) {
         file_key.get(c);
         d_key[k] = c;
     }
@@ -80,7 +80,7 @@ void decrypt_secret_impl::handle_msg(pmt::pmt_t msg)
     std::vector<uint8_t> data, nonce;
     bool msg_encrypted_found = false;
     bool nonce_found = false;
-    for (int k = 0; k < msg_size; k++) {
+    for (unsigned int k = 0; k < msg_size; k++) {
         if (pmt::symbol_to_string(pmt::nth(0, pmt::nth(k, msg))) == "msg_encrypted") {
             if (pmt::is_u8vector(pmt::nth(1, pmt::nth(k, msg)))) {
                 data = pmt::u8vector_elements(pmt::nth(1, pmt::nth(k, msg)));
@@ -101,9 +101,9 @@ void decrypt_secret_impl::handle_msg(pmt::pmt_t msg)
         std::vector<unsigned char> data_char(data.size());
         std::vector<unsigned char> nonce_char(nonce.size());
         size_t data_char_sz = (sizeof(unsigned char) * data.size());
-        for (int k = 0; k < data.size(); k++)
+        for (size_t k = 0; k < data.size(); k++)
             data_char[k] = (unsigned char)data[k];
-        for (int k = 0; k < nonce.size(); k++)
+        for (size_t k = 0; k < nonce.size(); k++)
             nonce_char[k] = (unsigned char)nonce[k];
         size_t msg_len = data_char_sz - crypto_secretbox_MACBYTES;
         std::vector<unsigned char> msg_decrypted(msg_len);
@@ -115,7 +115,7 @@ void decrypt_secret_impl::handle_msg(pmt::pmt_t msg)
             // repack msg with symbol 'msg_decrypted'
             std::vector<uint8_t> msg_decrypted_vec;
             msg_decrypted_vec.resize(msg_len);
-            for (int k = 0; k < msg_len; k++)
+            for (unsigned int k = 0; k < msg_len; k++)
                 msg_decrypted_vec[k] = (uint8_t)msg_decrypted[k];
 
             pmt::pmt_t msg_out = pmt::list2(

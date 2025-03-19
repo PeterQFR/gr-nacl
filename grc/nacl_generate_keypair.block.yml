@@ -3,7 +3,7 @@ label: Generate Keypair
 category: '[NACL]'
 
 templates:
-  imports: import nacl
+  imports: from gnuradio import nacl
   make: nacl.generate_keypair(${filename_sk}, ${filename_pk})
 
 #  Make one 'parameters' list entry for every parameter you want settable from the GUI.

@@ -3,7 +3,7 @@ label: Encrypt Public
 category: '[NACL]'
 
 templates:
-  imports: import nacl
+  imports: from gnuradio import nacl
   make: nacl.encrypt_public(${filename_pk}, ${filename_sk})
 
 #  Make one 'parameters' list entry for every parameter you want settable from the GUI.

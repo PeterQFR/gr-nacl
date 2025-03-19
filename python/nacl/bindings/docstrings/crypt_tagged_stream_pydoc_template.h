@@ -15,13 +15,10 @@
  */
 
 
-
- static const char *__doc_gr_nacl_crypt_tagged_stream = R"doc()doc";
-
-
- static const char *__doc_gr_nacl_crypt_tagged_stream_crypt_tagged_stream = R"doc()doc";
+static const char* __doc_gr_nacl_crypt_tagged_stream = R"doc()doc";
 
 
- static const char *__doc_gr_nacl_crypt_tagged_stream_make = R"doc()doc";
+static const char* __doc_gr_nacl_crypt_tagged_stream_crypt_tagged_stream = R"doc()doc";
 
-  
+
+static const char* __doc_gr_nacl_crypt_tagged_stream_make = R"doc()doc";
