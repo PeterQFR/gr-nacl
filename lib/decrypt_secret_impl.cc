@@ -28,6 +28,7 @@
 #include "sodium.h"
 #include <fstream>
 
+#include <boost/bind/placeholders.hpp>
 namespace gr {
 namespace nacl {
 
@@ -63,7 +64,7 @@ decrypt_secret_impl::decrypt_secret_impl(std::string filename_key)
     d_port_id_in = pmt::mp("Msg encrypted");
     message_port_register_in(d_port_id_in);
     set_msg_handler(d_port_id_in,
-                    boost::bind(&decrypt_secret_impl::handle_msg, this, _1));
+                    boost::bind(&decrypt_secret_impl::handle_msg, this, boost::placeholders::_1));
 
     // Register output message port
     d_port_id_out = pmt::mp("Msg decrypted");
@@ -97,18 +98,17 @@ void decrypt_secret_impl::handle_msg(pmt::pmt_t msg)
     // encrypt data
     if (msg_encrypted_found && nonce_found) {
         // decrypt message
-        __GR_VLA(unsigned char, data_char, data.size());
-        __GR_VLA(unsigned char, nonce_char, nonce.size());
+        std::vector<unsigned char> data_char(data.size());
+        std::vector<unsigned char> nonce_char(nonce.size());
         size_t data_char_sz = (sizeof(unsigned char) * data.size());
         for (int k = 0; k < data.size(); k++)
             data_char[k] = (unsigned char)data[k];
         for (int k = 0; k < nonce.size(); k++)
             nonce_char[k] = (unsigned char)nonce[k];
         size_t msg_len = data_char_sz - crypto_secretbox_MACBYTES;
-        __GR_VLA(unsigned char, msg_decrypted, msg_len);
-
+        std::vector<unsigned char> msg_decrypted(msg_len);
         int msg_status = crypto_secretbox_open_easy(
-            msg_decrypted, data_char, data_char_sz, nonce_char, d_key);
+            msg_decrypted.data(), data_char.data(), data_char_sz, nonce_char.data(), d_key);
 
         // check whether msg is successfully decrypted
         if (msg_status == 0) {
