@@ -119,18 +119,19 @@ void decrypt_public_impl::handle_msg(pmt::pmt_t msg)
     // encrypt data
     if (msg_encrypted_found && nonce_found) {
         // decrypt message
-        __GR_VLA(unsigned char, data_char, data.size());
-        __GR_VLA(unsigned char, nonce_char, nonce.size());
+        std::vector<unsigned char> data_char(data.size());
+        std::vector<unsigned char> nonce_char(nonce.size());
+
         size_t data_char_sz = (sizeof(unsigned char) * data.size());
         for (int k = 0; k < data.size(); k++)
             data_char[k] = (unsigned char)data[k];
         for (int k = 0; k < nonce.size(); k++)
             nonce_char[k] = (unsigned char)nonce[k];
         size_t msg_len = data_char_sz - crypto_box_MACBYTES;
-        __GR_VLA(unsigned char, msg_decrypted, msg_len);
+        std::vector<unsigned char> msg_decrypted(msg_len);
 
         int msg_status = crypto_box_open_easy(
-            msg_decrypted, data_char, data_char_sz, nonce_char, d_pk, d_sk);
+            msg_decrypted.data(), data_char.data(), data_char_sz, nonce_char.data(), d_pk, d_sk);
 
         // check whether msg is successfully decrypted
         if (msg_status == 0) {
