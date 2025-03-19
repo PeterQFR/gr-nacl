@@ -27,6 +27,7 @@
 
 #include <sodium.h>
 #include <fstream>
+#include <boost/bind/placeholders.hpp>
 
 namespace gr {
 namespace nacl {
@@ -75,7 +76,7 @@ decrypt_public_impl::decrypt_public_impl(std::string filename_pk, std::string fi
     d_port_id_in = pmt::mp("Msg encrypted");
     message_port_register_in(d_port_id_in);
     set_msg_handler(d_port_id_in,
-                    boost::bind(&decrypt_public_impl::handle_msg, this, _1));
+                    boost::bind(&decrypt_public_impl::handle_msg, this, boost::placeholders::_1));
 
     // Register output message port
     d_port_id_out = pmt::mp("Msg decrypted");
