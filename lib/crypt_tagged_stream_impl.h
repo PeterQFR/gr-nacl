@@ -34,6 +34,9 @@ private:
 protected:
     int calculate_output_stream_length(const gr_vector_int& ninput_items);
 
+    uint8_t* d_key;
+    uint8_t* d_nonce;
+    bool d_rotate_nonce;
 public:
     crypt_tagged_stream_impl(std::string key,
                              std::string nonce,
@@ -41,9 +44,6 @@ public:
                              const std::string& len_key);
     ~crypt_tagged_stream_impl();
 
-    uint8_t* d_key;
-    uint8_t* d_nonce;
-    bool d_rotate_nonce;
 
     // Where all the action really happens
     int work(int noutput_items,
