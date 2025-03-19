@@ -27,6 +27,7 @@
 
 #include "sodium.h"
 #include <fstream>
+#include <boost/bind/placeholders.hpp>
 
 namespace gr {
 namespace nacl {
@@ -63,7 +64,7 @@ encrypt_secret_impl::encrypt_secret_impl(std::string filename_key)
     d_port_id_in = pmt::mp("Msg clear");
     message_port_register_in(d_port_id_in);
     set_msg_handler(d_port_id_in,
-                    boost::bind(&encrypt_secret_impl::handle_msg, this, _1));
+                    boost::bind(&encrypt_secret_impl::handle_msg, this, boost::placeholders::_1));
 
     // Register output message port
     d_port_id_out = pmt::mp("Msg encrypted");
@@ -91,13 +92,13 @@ void encrypt_secret_impl::handle_msg(pmt::pmt_t msg)
         randombytes_buf(nonce, sizeof(nonce));
 
         // encrypt message
-        __GR_VLA(unsigned char, data_char, data.size());
+        std::vector <unsigned char> data_char(data.size());
         size_t data_char_sz = (sizeof(unsigned char) * data.size());
         for (int k = 0; k < data.size(); k++)
             data_char[k] = (unsigned char)data[k];
         size_t ciphertext_len = crypto_secretbox_MACBYTES + data_char_sz;
-        __GR_VLA(unsigned char, ciphertext, ciphertext_len);
-        crypto_secretbox_easy(ciphertext, data_char, data_char_sz, nonce, d_key);
+        std::vector<unsigned char> ciphertext(ciphertext_len);
+        crypto_secretbox_easy(ciphertext.data(), data_char.data(), data_char_sz, nonce, d_key);
 
         // repack msg with symbol 'msg_encrypted' and nonce with symbol 'nonce'
         std::vector<uint8_t> msg_encrypted;
