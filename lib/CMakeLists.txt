@@ -38,11 +38,10 @@ if(NOT nacl_sources)
     MESSAGE(STATUS "No C++ sources... skipping lib/")
     return()
 endif(NOT nacl_sources)
-
 add_library(gnuradio-nacl SHARED ${nacl_sources})
 target_link_libraries(gnuradio-nacl gnuradio::gnuradio-runtime sodium)
 target_include_directories(gnuradio-nacl
-    PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>
+    PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include/gnuradio>
     PUBLIC $<INSTALL_INTERFACE:include>
     PUBLIC ${SODIUM_INCLUDE_DIRS}
   )

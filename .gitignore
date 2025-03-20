@@ -2,3 +2,4 @@ build/
 top_block.py
 *.example
 *.swp
+*.pyc
